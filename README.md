@@ -1,9 +1,9 @@
 # SimpleForm fancy uploads
 
-A set of [simple_form](https://github.com/plataformatec/simple_form) (~> 3.1) custom inputs to get image previews or a link to
+A set of [simple_form](https://github.com/plataformatec/simple_form) (~> 4.1) custom inputs to get image previews or a link to
 uploaded file.
 
-This gem uses the new simple_form 3.1 ability to write your own form tags (check the [simple_form-bootstrap](https://github.com/rafaelfranca/simple_form-bootstrap) example). In 90% of cases, you need some kind of preview when it comes to uploaded files (avatar, images, docs, etc..), why should I write the same markup each time?
+This gem uses the simple_form ability to write your own form tags (check the [simple_form-bootstrap](https://github.com/rafaelfranca/simple_form-bootstrap) example). In 90% of cases, you need some kind of preview when it comes to uploaded files (avatar, images, docs, etc..), why should I write the same markup each time?
 
 ## What you get
 
@@ -24,7 +24,7 @@ Here's a basic example, as you can see, it's just a matter of specify the input 
 
 If you need to fallback on Carrierwave's `#default_url` method to show a default image defined in your upload class, set `:use_default_url => true` in the options hash.
 
-```
+```erb
 <%= simple_form_for @some_model do |f| %>
   <!-- we specify that this is an image form upload input, and we want to show the 'thumb' version
   of the carrierwave upload to not break our layout with a non-resized image -->
@@ -36,13 +36,21 @@ If you need to fallback on Carrierwave's `#default_url` method to show a default
 <% end %>
 ```
 
+If you want, you can pass the `preview_url` to the image on the input_html options. This might be useful when you don't have a model binded to the form.
+
+```erb
+<%= simple_form_for :user do |f| %>
+  <%= f.input :image, as: :image_preview, input_html: { preview_url: image_url } %>
+<% end %>
+```
+
 ### Dependencies
 
 To get it work, you need:
 
-* [simple_form](https://github.com/plataformatec/simple_form) ~> 3.1 (*repetita iuvant*)
+* [simple_form](https://github.com/plataformatec/simple_form) ~> 4.1 (*repetita iuvant*)
 * [carrierwave](https://github.com/jnicklas/carrierwave) actually it's the most opinionated gem for uploads (thank you paperclip for the good times, but you know... life goes on)
-* ruby 1.9+ (it uses some 1.9's syntax)
+* ruby 2.2.2+
 
 ### Testing
 
